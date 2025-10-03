@@ -1,0 +1,116 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "admin@turing.com",
+      "firstName": "Angel",
+      "lastName": "Velasquez",
+      "role": "admin",
+      "businessId": 1,
+      "isActive": true
+    },
+    {
+      "id": 2,
+      "email": "jareth.vidal@turing.com",
+      "firstName": "Jareth",
+      "lastName": "Vidal",
+      "role": "developer",
+      "businessId": 1,
+      "isActive": true
+    }
+  ],
+  "businesses": [
+    {
+      "id": 1,
+      "name": "Turing Almost Complete",
+      "type": "software_development",
+      "address": "UPC Campus, Lima",
+      "contactEmail": "contact@turing.com"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Fresh Tomatoes",
+      "category": "vegetables",
+      "quantity": 150,
+      "unit": "kg",
+      "expiryDate": "2024-02-15",
+      "temperatureRange": { "min": 4, "max": 8 },
+      "humidityRange": { "min": 85, "max": 95 },
+      "supplierId": 1,
+      "barcode": "7501234567890",
+      "businessId": 1,
+      "createdAt": "2024-01-15T10:30:00Z"
+    },
+    {
+      "id": 2,
+      "name": "Organic Chicken Breast",
+      "category": "meat",
+      "quantity": 75,
+      "unit": "kg",
+      "expiryDate": "2024-02-10",
+      "temperatureRange": { "min": -2, "max": 4 },
+      "humidityRange": { "min": 90, "max": 95 },
+      "supplierId": 2,
+      "barcode": "7501234567891",
+      "businessId": 1,
+      "createdAt": "2024-01-16T14:20:00Z"
+    },
+    {
+      "id": 3,
+      "name": "Whole Milk",
+      "category": "dairy",
+      "quantity": 200,
+      "unit": "liters",
+      "expiryDate": "2024-02-05",
+      "temperatureRange": { "min": 1, "max": 4 },
+      "humidityRange": { "min": 80, "max": 85 },
+      "supplierId": 3,
+      "barcode": "7501234567892",
+      "businessId": 1,
+      "createdAt": "2024-01-17T08:15:00Z"
+    }
+  ],
+  "categories": [
+    { "id": 1, "name": "vegetables" },
+    { "id": 2, "name": "fruits" },
+    { "id": 3, "name": "meat" },
+    { "id": 4, "name": "dairy" },
+    { "id": 5, "name": "seafood" }
+  ],
+  "suppliers": [
+    { "id": 1, "name": "Fresh Farms Co.", "contact": "Maria Gonzalez", "phone": "+51 987 654 321" },
+    { "id": 2, "name": "Organic Meat Suppliers", "contact": "Carlos Rodriguez", "phone": "+51 987 654 322" },
+    { "id": 3, "name": "Dairy Delights", "contact": "Lucia Fernandez", "phone": "+51 987 654 323" }
+  ],
+  "sensorReadings": [
+    {
+      "id": 1,
+      "sensorId": 1,
+      "temperature": 5.2,
+      "humidity": 88.5,
+      "timestamp": "2024-01-20T10:30:00Z",
+      "isNormal": true
+    },
+    {
+      "id": 2,
+      "sensorId": 2,
+      "temperature": -1.8,
+      "humidity": 92.1,
+      "timestamp": "2024-01-20T10:31:00Z",
+      "isNormal": true
+    }
+  ],
+  "alerts": [
+    {
+      "id": 1,
+      "productId": 1,
+      "type": "expiry_warning",
+      "message": "Product Fresh Tomatoes expires in 3 days",
+      "severity": "warning",
+      "isResolved": false,
+      "createdAt": "2024-01-20T09:00:00Z"
+    }
+  ]
+}
