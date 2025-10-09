@@ -1,0 +1,17 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "diego@gmail.com",
+      "password": "123456",
+      "company": "Pandora Fresh"
+    },
+    {
+      "id": "8389",
+      "company": "Pandora Plan",
+      "ruc": "353512421",
+      "email": "pandora@gmail.com",
+      "password": "Motocrossx165"
+    }
+  ]
+}
