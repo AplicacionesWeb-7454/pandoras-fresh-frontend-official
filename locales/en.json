@@ -1,0 +1,74 @@
+{
+  "app": {
+    "title": "Pandora's Fresh",
+    "reporting": "Reporting & Analytics"
+  },
+  "dates": {
+    "months": {
+      "january": "January",
+      "february": "February",
+      "march": "March",
+      "april": "April",
+      "may": "May",
+      "june": "June",
+      "july": "July",
+      "august": "August",
+      "september": "September",
+      "october": "October",
+      "november": "November",
+      "december": "December"
+    }
+  },
+  "metrics": {
+    "totalProducts": "Total products",
+    "registeredThisWeek": "registered this week",
+    "expiringSoon": "Expiring soon",
+    "expired": "Expired",
+    "inventoryStatus": "General inventory status",
+    "availableProducts": "Available products",
+    "expiredProducts": "Expired products",
+    "statusBreakdown": "Expiring and alerts",
+    "available": "Available",
+    "expiring": "Expiring soon",
+    "alert": "Alert condition"
+  },
+  "alerts": {
+    "qualityAlert": "Quality Alert",
+    "expiringAlert": "Expiring soon",
+    "conditionAlert": "Alert condition",
+    "expiringDescription": "Products expiring in 3 days or less.",
+    "conditionDescription": "Inadequate condition detected",
+    "noExpiringProducts": "No expiring products",
+    "noAlertConditions": "No alert conditions",
+    "noProducts": "No products in inventory"
+  },
+  "actions": {
+    "addProduct": "Add Product",
+    "deleteProduct": "Delete Product",
+    "cancel": "Cancel",
+    "save": "Save",
+    "close": "Close",
+    "add": "Add",
+    "delete": "Delete",
+    "generateReport": "Generate Report"
+  },
+  "forms": {
+    "addProduct": "Add Product",
+    "productName": "Product Name",
+    "category": "Category",
+    "quantity": "Quantity",
+    "expiryDate": "Expiry Date",
+    "temperature": "Temperature (°C)",
+    "humidity": "Humidity (%)",
+    "selectCategory": "Select category",
+    "units": "Number of units"
+  },
+  "categories": {
+    "fruits": "Fruits",
+    "dairy": "Dairy",
+    "meat": "Meat",
+    "vegetables": "Vegetables",
+    "bakery": "Bakery",
+    "beverages": "Beverages"
+  }
+}
