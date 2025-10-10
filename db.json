@@ -1,0 +1,112 @@
+{
+  "sensors": [
+    {
+      "id": "1-G",
+      "name": "Sensor 1-G",
+      "zone": "Market Stall 1",
+      "location": "Fruit Section",
+      "status": "Active",
+      "lastReading": "2025-10-10T00:26:00Z"
+    },
+    {
+      "id": "1-G2",
+      "name": "Sensor 1-G2",
+      "zone": "Market Stall 2",
+      "location": "Vegetable Section",
+      "status": "Active",
+      "lastReading": "2025-10-10T00:24:00Z"
+    },
+    {
+      "id": "1-G3",
+      "name": "Sensor 1-G3",
+      "zone": "Market Stall 3",
+      "location": "Seafood Section",
+      "status": "Active",
+      "lastReading": "2025-10-10T00:22:00Z"
+    },
+    {
+      "id": "2-A",
+      "name": "Sensor 2-A",
+      "zone": "Restaurant La Pampa",
+      "location": "Main Kitchen",
+      "status": "Active",
+      "lastReading": "2025-10-10T00:20:00Z"
+    },
+    {
+      "id": "2-B",
+      "name": "Sensor 2-B",
+      "zone": "Restaurant La Pampa",
+      "location": "Cold Storage",
+      "status": "Active",
+      "lastReading": "2025-10-10T00:18:00Z"
+    }
+  ],
+  "readings": [
+    {
+      "sensorId": "1-G",
+      "timestamp": "2025-10-10T00:26:00Z",
+      "temperature": 24.9,
+      "humidity": 48.2,
+      "wind": 12
+    },
+    {
+      "sensorId": "1-G2",
+      "timestamp": "2025-10-10T00:24:00Z",
+      "temperature": 23.7,
+      "humidity": 47.0,
+      "wind": 10
+    },
+    {
+      "sensorId": "1-G3",
+      "timestamp": "2025-10-10T00:22:00Z",
+      "temperature": 22.8,
+      "humidity": 46.5,
+      "wind": 9
+    },
+    {
+      "sensorId": "2-A",
+      "timestamp": "2025-10-10T00:20:00Z",
+      "temperature": 25.1,
+      "humidity": 45.3,
+      "wind": 11
+    },
+    {
+      "sensorId": "2-B",
+      "timestamp": "2025-10-10T00:18:00Z",
+      "temperature": 26.0,
+      "humidity": 44.8,
+      "wind": 13
+    }
+  ],
+  "zones": [
+    { "id": 1, "name": "Market Stall 1" },
+    { "id": 2, "name": "Market Stall 2" },
+    { "id": 3, "name": "Market Stall 3" },
+    { "id": 4, "name": "Restaurant La Pampa" }
+  ],
+  "statuses": [
+    { "id": 1, "name": "Active" },
+    { "id": 2, "name": "Inactive" },
+    { "id": 3, "name": "Error" }
+  ],
+  "links": [
+    {
+      "sensorId": "1-G",
+      "zone": "Market Stall 1",
+      "code": "MS1-FR",
+      "notes": "Main sensor for fruit section"
+    },
+    {
+      "sensorId": "1-G2",
+      "zone": "Market Stall 2",
+      "code": "MS2-VE",
+      "notes": "Secondary sensor for vegetables"
+    },
+    {
+      "sensorId": "2-A",
+      "zone": "Restaurant La Pampa",
+      "code": "RLP-K1",
+      "notes": "Temperature sensor in main kitchen"
+    }
+  ]
+}

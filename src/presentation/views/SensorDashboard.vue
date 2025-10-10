@@ -3,38 +3,38 @@
     <Sidebar @add="showModal = true" />
 
     <div class="main-content">
-      <!-- 🔍 Encabezado con búsqueda y filtro -->
+      <!-- 🔍 Header with search and filter -->
       <div class="dashboard-header">
-        <input type="text" placeholder="Buscar sensor..." v-model="searchQuery" />
-        <button class="filter-btn" @click="showFilter = true">Filtro</button>
-        <button class="add-btn" @click="showModal = true">Agregar</button>
+        <input type="text" placeholder="Search sensor..." v-model="searchQuery" />
+        <button class="filter-btn" @click="showFilter = true">Filter</button>
+        <button class="add-btn" @click="showModal = true">Add</button>
       </div>
 
-      <!-- 🎛️ Panel de filtros -->
+      <!-- 🎛️ Filter panel -->
       <div v-if="showFilter" class="filter-panel">
-        <h3>Filtrar sensores</h3>
+        <h3>Filter sensors</h3>
 
-        <label>Zona:</label>
+        <label>Zone:</label>
         <select v-model="filters.zone">
-          <option value="">Todas</option>
-          <option value="Zona A">Zona A</option>
-          <option value="Zona B">Zona B</option>
+          <option value="">All</option>
+          <option value="Zone A">Zone A</option>
+          <option value="Zone B">Zone B</option>
         </select>
 
-        <label>Estado:</label>
+        <label>Status:</label>
         <select v-model="filters.status">
-          <option value="">Todos</option>
-          <option value="Activo">Activo</option>
-          <option value="Desactivado">Desactivado</option>
+          <option value="">All</option>
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
         </select>
 
         <div class="filter-actions">
-          <button @click="showFilter = false">Cerrar</button>
-          <button @click="resetFilters">Limpiar</button>
+          <button @click="showFilter = false">Close</button>
+          <button @click="resetFilters">Clear</button>
         </div>
       </div>
 
-      <!-- 📋 Listado de sensores -->
+      <!-- 📋 Sensor list -->
       <div class="sensor-list">
         <div
             v-for="sensor in filteredSensors"
@@ -44,26 +44,26 @@
           <h3>{{ sensor.name }}</h3>
           <p>{{ sensor.description }}</p>
           <span :class="sensor.status">{{ sensor.status }}</span>
-          <button @click="selectSensor(sensor)">Ver lecturas</button>
+          <button @click="selectSensor(sensor)">View readings</button>
         </div>
       </div>
 
-      <!-- 📊 Panel lateral de detalles -->
+      <!-- 📊 Side panel with details -->
       <aside v-if="selectedSensor" class="sensor-details">
         <h2>{{ selectedSensor.name }}</h2>
-        <p>Estado: {{ selectedSensor.status }}</p>
-        <p>Última lectura: {{ selectedSensor.lastReading }}</p>
+        <p>Status: {{ selectedSensor.status }}</p>
+        <p>Last reading: {{ selectedSensor.lastReading }}</p>
         <table>
-          <tr><td>Temperatura:</td><td>{{ selectedSensor.readings.temperature }}°C</td></tr>
-          <tr><td>Humedad:</td><td>{{ selectedSensor.readings.humidity }}%</td></tr>
-          <tr><td>Viento:</td><td>{{ selectedSensor.readings.wind }} km/h</td></tr>
+          <tr><td>Temperature:</td><td>{{ selectedSensor.readings.temperature }}°C</td></tr>
+          <tr><td>Humidity:</td><td>{{ selectedSensor.readings.humidity }}%</td></tr>
+          <tr><td>Wind:</td><td>{{ selectedSensor.readings.wind }} km/h</td></tr>
         </table>
-        <button @click="removeSensor(selectedSensor.id)">Desvincular</button>
-        <button>Editar</button>
+        <button @click="removeSensor(selectedSensor.id)">Unlink</button>
+        <button>Edit</button>
       </aside>
     </div>
 
-    <!-- 🟢 Modal de vinculación -->
+    <!-- 🟢 Linking modal -->
     <SensorLinkModal v-if="showModal" @close="showModal = false" />
   </div>
 </template>
@@ -108,6 +108,8 @@ onMounted(() => {
   loadSensors()
 })
 </script>
+
+
 
 <style scoped>
 .layout {

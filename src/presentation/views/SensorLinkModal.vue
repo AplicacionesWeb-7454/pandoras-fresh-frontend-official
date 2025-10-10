@@ -1,20 +1,20 @@
 <template>
   <div class="modal-overlay">
     <div class="modal">
-      <h2>Vincular nuevo sensor</h2>
+      <h2>Link New Sensor</h2>
       <form @submit.prevent="saveSensor">
-        <label>Campo:</label>
+        <label>Zone:</label>
         <input v-model="form.field" required />
 
-        <label>Código:</label>
+        <label>Code:</label>
         <input v-model="form.code" required />
 
-        <label>Observaciones:</label>
+        <label>Notes:</label>
         <textarea v-model="form.notes" />
 
         <div class="actions">
-          <button type="button" @click="showModal = false">Cancelar</button>
-          <button type="submit">Guardar sensor</button>
+          <button type="button" @click="showModal = false">Cancel</button>
+          <button type="submit">Save Sensor</button>
         </div>
       </form>
     </div>
@@ -45,7 +45,7 @@ function saveSensor() {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.3); /* fondo semitransparente */
+  background-color: rgba(0, 0, 0, 0.3); /* semi-transparent background */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -122,5 +122,4 @@ textarea {
   background-color: #4CAF50;
   color: white;
 }
-
 </style>

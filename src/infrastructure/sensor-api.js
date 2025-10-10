@@ -1,44 +1,50 @@
+const BASE_URL = import.meta.env.VITE_MONITORING_API_URL;
+const SENSORS_ENDPOINT = import.meta.env.VITE_SENSORS_ENDPOINT;
+const READINGS_ENDPOINT = import.meta.env.VITE_READINGS_ENDPOINT;
+
 export async function fetchSensors() {
-    return [
-        {
-            id: 1,
-            name: 'Sensor 1-G',
-            description: 'Zona: Clínica Plegaria 1, Oficina 1',
-            status: 'Activo',
-            lastReading: 'Hace 2 minutos',
-            readings: { temperature: 24.9, humidity: 48.2, wind: 12 }
-        },
-        {
-            id: 2,
-            name: 'Sensor 1-G2',
-            description: 'Zona: Clínica Plegaria 1, Oficina 2',
-            status: 'Activo',
-            lastReading: 'Hace 5 minutos',
-            readings: { temperature: 25.3, humidity: 47.0, wind: 10 }
-        },
-        {
-            id: 3,
-            name: 'Sensor 1-G3',
-            description: 'Zona: Clínica Plegaria 1, Oficina 3',
-            status: 'Activo',
-            lastReading: 'Hace 1 minuto',
-            readings: { temperature: 26.1, humidity: 49.5, wind: 14 }
-        },
-        {
-            id: 4,
-            name: 'Sensor 2-A',
-            description: 'Zona: Planta Frigorífica, Cámara 1',
-            status: 'Activo',
-            lastReading: 'Hace 3 minutos',
-            readings: { temperature: 2.1, humidity: 85.0, wind: 0 }
-        },
-        {
-            id: 5,
-            name: 'Sensor 2-B',
-            description: 'Zona: Planta Frigorífica, Cámara 2',
-            status: 'Activo',
-            lastReading: 'Hace 4 minutos',
-            readings: { temperature: 1.8, humidity: 87.0, wind: 0 }
-        }
-    ]
+    try {
+        const [sensorsRes, readingsRes] = await Promise.all([
+            fetch(`${BASE_URL}${SENSORS_ENDPOINT}`),
+            fetch(`${BASE_URL}${READINGS_ENDPOINT}`)
+        ]);
+
+        if (!sensorsRes.ok || !readingsRes.ok) throw new Error('Error fetching data');
+
+        const sensors = await sensorsRes.json();
+        const readings = await readingsRes.json();
+
+        return sensors.map(sensor => {
+            const reading = readings.find(r => r.sensorId === sensor.id);
+
+            return {
+                id: sensor.id,
+                name: sensor.name,
+                description: `Zone: ${sensor.zone}, ${sensor.location}`,
+                status: sensor.status,
+                lastReading: formatRelativeTime(sensor.lastReading),
+                readings: reading
+                    ? {
+                        temperature: reading.temperature,
+                        humidity: reading.humidity,
+                        wind: reading.wind
+                    }
+                    : {
+                        temperature: null,
+                        humidity: null,
+                        wind: null
+                    }
+            };
+        });
+    } catch (error) {
+        console.error('❌ fetchSensors error:', error);
+        return [];
+    }
+}
+
+function formatRelativeTime(timestamp) {
+    const now = new Date();
+    const time = new Date(timestamp);
+    const minutes = Math.floor((now - time) / 60000);
+    return `Hace ${minutes} minuto${minutes !== 1 ? 's' : ''}`;
 }
