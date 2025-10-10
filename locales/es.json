@@ -1,0 +1,74 @@
+{
+  "app": {
+    "title": "Pandora's Fresh",
+    "reporting": "Reporting & Analytics"
+  },
+  "dates": {
+    "months": {
+      "january": "Enero",
+      "february": "Febrero",
+      "march": "Marzo",
+      "april": "Abril",
+      "may": "Mayo",
+      "june": "Junio",
+      "july": "Julio",
+      "august": "Agosto",
+      "september": "Septiembre",
+      "october": "Octubre",
+      "november": "Noviembre",
+      "december": "Diciembre"
+    }
+  },
+  "metrics": {
+    "totalProducts": "Total productos",
+    "registeredThisWeek": "registrados esta semana",
+    "expiringSoon": "Proximos a caducar",
+    "expired": "Vencidos",
+    "inventoryStatus": "Estado general del inventario",
+    "availableProducts": "Productos disponibles",
+    "expiredProducts": "Productos caducados",
+    "statusBreakdown": "Por caducar y alerta",
+    "available": "Disponibles",
+    "expiring": "Por caducar",
+    "alert": "En condición de alerta"
+  },
+  "alerts": {
+    "qualityAlert": "Alerta de Calidad",
+    "expiringAlert": "Por caducar",
+    "conditionAlert": "Condición de alerta",
+    "expiringDescription": "Productos por caducar en 3 o menos días.",
+    "conditionDescription": "Condición inadecuada detectable",
+    "noExpiringProducts": "No hay productos por caducar",
+    "noAlertConditions": "No hay condiciones de alerta",
+    "noProducts": "No hay productos en el inventario"
+  },
+  "actions": {
+    "addProduct": "Agregar Producto",
+    "deleteProduct": "Eliminar Producto",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "close": "Cerrar",
+    "add": "Agregar",
+    "delete": "Eliminar",
+    "generateReport": "Generar Reporte"
+  },
+  "forms": {
+    "addProduct": "Agregar Producto",
+    "productName": "Nombre del Producto",
+    "category": "Categoría",
+    "quantity": "Cantidad",
+    "expiryDate": "Fecha de Caducidad",
+    "temperature": "Temperatura (°C)",
+    "humidity": "Humedad (%)",
+    "selectCategory": "Seleccione categoría",
+    "units": "Número de unidades"
+  },
+  "categories": {
+    "fruits": "Frutas",
+    "dairy": "Lácteos",
+    "meat": "Cárnicos",
+    "vegetables": "Verduras",
+    "bakery": "Panadería",
+    "beverages": "Bebidas"
+  }
+}
