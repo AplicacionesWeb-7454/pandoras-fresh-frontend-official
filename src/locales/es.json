@@ -1,0 +1,12 @@
+{
+  "products": {
+    "title": "Productos",
+    "new": "Nuevo Producto",
+    "search-placeholder": "Buscar productos...",
+    "confirm-delete": "¿Estás seguro de que quieres eliminar {name}?",
+    "delete-header": "Confirmar Eliminación"
+  },
+  "errors": {
+    "occurred": "Ocurrieron errores"
+  }
+}

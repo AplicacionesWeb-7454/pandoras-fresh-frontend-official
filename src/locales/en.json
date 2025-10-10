@@ -1,0 +1,12 @@
+{
+  "products": {
+    "title": "Products",
+    "new": "New Product",
+    "search-placeholder": "Search products...",
+    "confirm-delete": "Are you sure you want to delete {name}?",
+    "delete-header": "Confirm Deletion"
+  },
+  "errors": {
+    "occurred": "Errors occurred"
+  }
+}
