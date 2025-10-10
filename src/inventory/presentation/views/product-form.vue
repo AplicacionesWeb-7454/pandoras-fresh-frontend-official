@@ -24,7 +24,7 @@ const form = ref({
 
 const loading = ref(false);
 const isEdit = computed(() => !!route.params.id);
-const pageTitle = computed(() => isEdit.value ? 'Edit Product' : 'Add New Product');
+const pageTitle = computed(() => isEdit.value ? t('products.edit') : t('products.new'));
 
 // Common product categories
 const categories = ref([
@@ -95,7 +95,6 @@ const cancel = () => {
 };
 
 const generateBarcode = () => {
-  // Simple barcode generator for demo purposes
   const randomBarcode = Math.floor(1000000000000 + Math.random() * 9000000000000).toString();
   form.value.barcode = randomBarcode;
 };
@@ -109,7 +108,7 @@ const generateBarcode = () => {
           text
           rounded
           @click="cancel"
-          v-tooltip="'Back to products'" />
+          v-tooltip="t('common.back')" />
       <h1 class="m-0">{{ pageTitle }}</h1>
     </div>
 
@@ -121,37 +120,37 @@ const generateBarcode = () => {
             <div class="col-12 md:col-8">
               <div class="grid">
                 <div class="col-12">
-                  <h3 class="mt-0 mb-3">Basic Information</h3>
+                  <h3 class="mt-0 mb-3">{{ $t('products.basicInfo') }}</h3>
                 </div>
 
                 <div class="col-12 md:col-6">
                   <div class="field">
-                    <label for="name">Product Name *</label>
+                    <label for="name">{{ $t('products.name') }} *</label>
                     <pv-input-text
                         id="name"
                         v-model="form.name"
                         required
-                        placeholder="Enter product name"
+                        :placeholder="$t('products.name')"
                         class="w-full" />
                   </div>
                 </div>
 
                 <div class="col-12 md:col-6">
                   <div class="field">
-                    <label for="category">Category *</label>
+                    <label for="category">{{ $t('products.category') }} *</label>
                     <pv-select
                         id="category"
                         v-model="form.category"
                         :options="categories"
                         required
-                        placeholder="Select category"
+                        :placeholder="$t('products.category')"
                         class="w-full" />
                   </div>
                 </div>
 
                 <div class="col-12 md:col-6">
                   <div class="field">
-                    <label for="quantity">Quantity *</label>
+                    <label for="quantity">{{ $t('products.quantity') }} *</label>
                     <pv-input-number
                         id="quantity"
                         v-model="form.quantity"
@@ -163,7 +162,7 @@ const generateBarcode = () => {
 
                 <div class="col-12 md:col-6">
                   <div class="field">
-                    <label for="expirationDate">Expiration Date *</label>
+                    <label for="expirationDate">{{ $t('products.expirationDate') }} *</label>
                     <pv-calendar
                         id="expirationDate"
                         v-model="form.expirationDate"
@@ -179,30 +178,30 @@ const generateBarcode = () => {
             <div class="col-12 md:col-4">
               <div class="grid">
                 <div class="col-12">
-                  <h3 class="mt-0 mb-3">Additional Information</h3>
+                  <h3 class="mt-0 mb-3">{{ $t('products.additionalInfo') }}</h3>
                 </div>
 
                 <div class="col-12">
                   <div class="field">
-                    <label for="barcode">Barcode</label>
+                    <label for="barcode">{{ $t('products.barcode') }}</label>
                     <div class="flex gap-2">
                       <pv-input-text
                           id="barcode"
                           v-model="form.barcode"
-                          placeholder="Product barcode"
+                          :placeholder="$t('products.barcode')"
                           class="flex-1" />
                       <pv-button
                           icon="pi pi-refresh"
                           severity="secondary"
                           @click="generateBarcode"
-                          v-tooltip="'Generate barcode'" />
+                          v-tooltip="$t('products.generateBarcode')" />
                     </div>
                   </div>
                 </div>
 
                 <div class="col-12">
                   <div class="field">
-                    <label for="optimalTemperature">Optimal Temperature (°C)</label>
+                    <label for="optimalTemperature">{{ $t('products.optimalTemperature') }} (°C)</label>
                     <pv-input-number
                         id="optimalTemperature"
                         v-model="form.optimalTemperature"
@@ -215,7 +214,7 @@ const generateBarcode = () => {
 
                 <div class="col-12">
                   <div class="field">
-                    <label for="optimalHumidity">Optimal Humidity (%)</label>
+                    <label for="optimalHumidity">{{ $t('products.optimalHumidity') }} (%)</label>
                     <pv-input-number
                         id="optimalHumidity"
                         v-model="form.optimalHumidity"
@@ -232,12 +231,12 @@ const generateBarcode = () => {
           <!-- Form Actions -->
           <div class="flex justify-content-end gap-2 mt-4 pt-3 border-top-1 surface-border">
             <pv-button
-                label="Cancel"
+                :label="$t('products.cancel')"
                 severity="secondary"
                 icon="pi pi-times"
                 @click="cancel" />
             <pv-button
-                :label="isEdit ? 'Update Product' : 'Create Product'"
+                :label="isEdit ? $t('products.save') : $t('products.create')"
                 :loading="loading"
                 icon="pi pi-check"
                 type="submit" />

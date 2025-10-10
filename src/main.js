@@ -1,9 +1,9 @@
 import { createApp } from 'vue'
 import './style.css'
-import App from './app.vue'
+import App from './App.vue'
 import i18n from "./i18n.js";
 import PrimeVue from 'primevue/config';
-import Material from '@primeuix/themes/material';
+import Aura from '@primevue/themes/aura';
 import 'primeflex/primeflex.css';
 import 'primeicons/primeicons.css';
 import {
@@ -38,7 +38,7 @@ createApp(App)
     .use(i18n)
     .use(PrimeVue, {
         theme: {
-            preset: Material
+            preset: Aura
         },
         ripple: true
     })

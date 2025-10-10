@@ -78,12 +78,6 @@ const categoryDistribution = computed(() => {
   }));
 });
 
-const recentProducts = computed(() => {
-  return [...products]
-      .sort((a, b) => new Date(b.expirationDate) - new Date(a.expirationDate))
-      .slice(0, 6);
-});
-
 const navigateToProducts = () => {
   router.push({ name: 'inventory-products' });
 };
@@ -233,7 +227,7 @@ const refreshData = async () => {
         </pv-card>
       </div>
 
-      <!-- Recent Products / Expiring Soon -->
+      <!-- Products Expiring Soon -->
       <div class="col-12">
         <pv-card>
           <template #header>
@@ -246,7 +240,7 @@ const refreshData = async () => {
             </div>
           </template>
           <template #content>
-            <ProductGrid
+            <ProductList
                 :products="expiringProducts.slice(0, 8)"
                 :loading="loading"
                 size="small"

@@ -16,7 +16,7 @@ const props = defineProps({
   },
   size: {
     type: String,
-    default: 'medium', // 'small' | 'medium' | 'large'
+    default: 'medium',
     validator: (value) => ['small', 'medium', 'large'].includes(value)
   }
 });
@@ -24,15 +24,15 @@ const props = defineProps({
 const emit = defineEmits(['edit', 'delete', 'view']);
 
 const getExpirationStatus = (product) => {
-  if (product.isExpired()) return { severity: 'danger', label: 'Expired', icon: 'pi pi-exclamation-circle' };
-  if (product.isExpiringSoon()) return { severity: 'warning', label: 'Expiring Soon', icon: 'pi pi-clock' };
-  return { severity: 'success', label: 'Fresh', icon: 'pi pi-check' };
+  if (product.isExpired()) return { severity: 'danger', label: t('status.expired'), icon: 'pi pi-exclamation-circle' };
+  if (product.isExpiringSoon()) return { severity: 'warning', label: t('status.expiringSoon'), icon: 'pi pi-clock' };
+  return { severity: 'success', label: t('status.fresh'), icon: 'pi pi-check' };
 };
 
 const getStockStatus = (product) => {
-  if (product.quantity === 0) return { severity: 'danger', label: 'Out of Stock', icon: 'pi pi-times' };
-  if (product.quantity < 10) return { severity: 'warning', label: 'Low Stock', icon: 'pi pi-exclamation-triangle' };
-  return { severity: 'success', label: 'In Stock', icon: 'pi pi-check' };
+  if (product.quantity === 0) return { severity: 'danger', label: t('status.outOfStock'), icon: 'pi pi-times' };
+  if (product.quantity < 10) return { severity: 'warning', label: t('status.lowStock'), icon: 'pi pi-exclamation-triangle' };
+  return { severity: 'success', label: t('status.inStock'), icon: 'pi pi-check' };
 };
 
 const getCategoryColor = (category) => {
@@ -104,17 +104,17 @@ const handleView = () => {
         <div class="product-card__details">
           <div class="product-card__detail">
             <i class="pi pi-box mr-2"></i>
-            <span>Quantity: {{ product.quantity }}</span>
+            <span>{{ $t('products.quantity') }}: {{ product.quantity }}</span>
           </div>
 
           <div class="product-card__detail">
             <i class="pi pi-calendar mr-2"></i>
-            <span>Expires: {{ formatExpirationDate(product.expirationDate) }}</span>
+            <span>{{ $t('products.expirationDate') }}: {{ formatExpirationDate(product.expirationDate) }}</span>
           </div>
 
           <div v-if="product.optimalTemperature" class="product-card__detail">
             <i class="pi pi-thermometer mr-2"></i>
-            <span>Optimal Temp: {{ product.optimalTemperature }}°C</span>
+            <span>{{ $t('products.optimalTemperature') }}: {{ product.optimalTemperature }}°C</span>
           </div>
 
           <div v-if="product.barcode" class="product-card__detail">
@@ -126,7 +126,7 @@ const handleView = () => {
         <div class="product-card__expiration-days">
           <span v-if="product.daysUntilExpiration !== null"
                 :class="`days-${getExpirationStatus(product).severity}`">
-            {{ product.daysUntilExpiration }} days left
+            {{ product.daysUntilExpiration }} {{ $t('common.daysLeft') }}
           </span>
         </div>
       </div>
@@ -136,19 +136,19 @@ const handleView = () => {
       <div class="product-card__footer">
         <pv-button
             icon="pi pi-eye"
-            label="View"
+            :label="$t('products.view')"
             text
             size="small"
             @click="handleView" />
         <pv-button
             icon="pi pi-pencil"
-            label="Edit"
+            :label="$t('products.edit')"
             text
             size="small"
             @click="handleEdit" />
         <pv-button
             icon="pi pi-trash"
-            label="Delete"
+            :label="$t('products.delete')"
             severity="danger"
             text
             size="small"

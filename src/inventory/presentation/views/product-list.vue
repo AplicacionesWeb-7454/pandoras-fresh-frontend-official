@@ -1,5 +1,8 @@
 <script setup>
 import ProductCard from './product-card.vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const props = defineProps({
   products: {
@@ -70,8 +73,8 @@ const handleView = (productId) => {
 
     <div v-if="!loading && products.length === 0" class="empty-state">
       <i class="pi pi-inbox empty-state__icon"></i>
-      <h3 class="empty-state__title">No Products Found</h3>
-      <p class="empty-state__description">Get started by adding your first product to the inventory.</p>
+      <h3 class="empty-state__title">{{ $t('products.noProducts') }}</h3>
+      <p class="empty-state__description">{{ $t('products.getStarted') }}</p>
     </div>
   </div>
 </template>
