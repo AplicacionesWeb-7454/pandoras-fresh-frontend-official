@@ -1,0 +1,42 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Fresh Tomatoes",
+      "category": "Vegetables",
+      "quantity": 25,
+      "expirationDate": "2025-04-30",
+      "optimalTemperature": 12,
+      "optimalHumidity": 85,
+      "barcode": "123456789012",
+      "categoryId": 1
+    },
+    {
+      "id": 2,
+      "name": "Organic Milk",
+      "category": "Dairy",
+      "quantity": 8,
+      "expirationDate": "2025-04-20",
+      "optimalTemperature": 4,
+      "optimalHumidity": 75,
+      "barcode": "123456789013",
+      "categoryId": 2
+    }
+  ],
+  "inventory": [
+    {
+      "id": 1,
+      "location": "Main Refrigerator",
+      "capacity": 100,
+      "currentStock": 45,
+      "lastUpdated": "2025-04-15T10:30:00Z"
+    },
+    {
+      "id": 2,
+      "location": "Dry Storage",
+      "capacity": 200,
+      "currentStock": 120,
+      "lastUpdated": "2025-04-15T10:30:00Z"
+    }
+  ]
+}
