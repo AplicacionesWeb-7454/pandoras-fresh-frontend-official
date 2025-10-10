@@ -1,5 +1,6 @@
 ﻿import { ref } from "vue";
-import { Alert } from "../../../notificaciones/src/Domain/Model/alert.entity.js";
+//import { Alert } from "../../../notificaciones/src/Domain/Model/alert.entity.js";
+import {Alert} from "@/Domain/Model/alert.entity.js";
 
 export const useAlertStore = () => {
     const alerts = ref([

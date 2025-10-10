@@ -1,5 +1,6 @@
 ﻿<script setup>
-import { useAlertStore } from "../../../../alert-notification/src/application/alert.store.js";
+//import { useAlertStore } from "../../../../alert-notification/src/application/alert.store.js";
+import {useAlertStore} from "@/application/alert.store.js";
 import { Home, ClipboardList, Thermometer, BarChart3, Settings } from "lucide-vue-next";
 
 const { alerts, markAsResolved } = useAlertStore();
