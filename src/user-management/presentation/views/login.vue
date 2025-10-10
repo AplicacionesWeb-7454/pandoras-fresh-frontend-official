@@ -2,26 +2,26 @@
   <AuthLayout
       logo="/img/logo-pandora.png"
       image="/img/vegetales.jpg"
-      title="Iniciar Sesión"
-      subtitle="¡Nos alegra tenerte de vuelta!"
+      title="Login"
+      subtitle="We're glad to have you back!"
   >
     <!-- Formulario -->
     <form @submit.prevent="onSubmit" class="card bg-base-100 shadow-xl p-6 space-y-4">
       <div class="form-control">
         <label class="label">
-          <span class="label-text">Correo electrónico</span>
+          <span class="label-text">Email</span>
         </label>
         <input
             v-model="email"
             type="email"
-            placeholder="ejemplo@correo.com"
+            placeholder="example@email.com"
             class="input input-bordered w-full"
         />
       </div>
 
       <div class="form-control">
         <label class="label">
-          <span class="label-text">Contraseña</span>
+          <span class="label-text">Password</span>
         </label>
         <input
             v-model="password"
@@ -36,7 +36,7 @@
         </label>
       </div>
 
-      <button type="submit" class="btn btn-success w-full">Iniciar Sesión</button>
+      <button type="submit" class="btn btn-success w-full">Login</button>
     </form>
 
     <!-- Separador -->
@@ -56,11 +56,11 @@
 
     <!-- Footer -->
     <p class="text-center text-sm text-gray-600 mt-6">
-      ¿No tienes una cuenta?
-      <router-link to="/register" class="link link-success">Crea una</router-link>
+      Don't have an account?
+      <router-link to="/register" class="link link-success">Create a</router-link>
     </p>
   </AuthLayout>
-  <button class="btn btn-success">Probar DaisyUI</button>
+
 
 </template>
 
@@ -75,9 +75,9 @@ const password = ref('')
 async function onSubmit() {
   try {
     await loginUseCase(email.value, password.value)
-    alert('Sesión iniciada')
+    alert('Session started')
   } catch (err) {
-    alert('Error al iniciar sesión')
+    alert('Login error')
   }
 }
 </script>

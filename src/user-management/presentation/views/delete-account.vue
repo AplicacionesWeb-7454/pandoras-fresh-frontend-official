@@ -1,8 +1,8 @@
 <template>
   <div class="p-6">
-    <h1 class="text-xl font-bold mb-4 text-red-600">Eliminar Cuenta</h1>
-    <p class="mb-4">Esta acción es irreversible. ¿Seguro que deseas continuar?</p>
-    <button @click="onDelete" class="bg-red-600 text-white py-2 px-4 rounded">Eliminar cuenta</button>
+    <h1 class="text-xl font-bold mb-4 text-red-600">Delete Account</h1>
+    <p class="mb-4">This action is irreversible. Are you sure you want to continue?</p>
+    <button @click="onDelete" class="bg-red-600 text-white py-2 px-4 rounded">Delete Account</button>
   </div>
 </template>
 

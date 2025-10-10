@@ -5,20 +5,20 @@
       <nav class="container mx-auto flex justify-between items-center p-4">
         <h1 class="text-xl font-bold">Pandora Fresh</h1>
         <ul class="flex gap-4">
-          <li><router-link to="/" class="hover:underline">Inicio</router-link></li>
+          <li><router-link to="/" class="hover:underline">Start</router-link></li>
 
           <!-- Si NO está autenticado -->
           <template v-if="!store.isAuthenticated">
             <li><router-link to="/login" class="hover:underline">Login</router-link></li>
-            <li><router-link to="/register" class="hover:underline">Registro</router-link></li>
+            <li><router-link to="/register" class="hover:underline">Register</router-link></li>
           </template>
 
           <!-- Si SÍ está autenticado -->
           <template v-else>
             <li><router-link to="/profile" class="hover:underline">Perfil</router-link></li>
-            <li v-if="store.isAdmin"><router-link to="/users" class="hover:underline">Usuarios</router-link></li>
+            <li v-if="store.isAdmin"><router-link to="/users" class="hover:underline">User</router-link></li>
             <li>
-              <button @click="logout" class="hover:underline">Cerrar sesión</button>
+              <button @click="logout" class="hover:underline">Log Out</button>
             </li>
           </template>
         </ul>
@@ -32,7 +32,7 @@
 
     <!-- Footer -->
     <footer class="bg-gray-800 text-gray-200 text-center py-4">
-      <p>&copy; 2025 Pandora Fresh. Todos los derechos reservados.</p>
+      <p>&copy; 2025 Pandora Fresh. All rights reserved.</p>
     </footer>
   </div>
 </template>

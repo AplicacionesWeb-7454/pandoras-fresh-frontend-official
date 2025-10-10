@@ -3,15 +3,15 @@
     <h1 class="text-xl font-bold mb-4">Usuarios</h1>
     <div class="mb-4">
       <input v-model="search" placeholder="Buscar..." class="border p-2 rounded w-64" />
-      <button @click="load" class="ml-2 bg-green-600 text-white px-3 py-2 rounded">Buscar</button>
+      <button @click="load" class="ml-2 bg-green-600 text-white px-3 py-2 rounded">Search</button>
     </div>
     <table class="w-full text-left border">
       <thead>
       <tr>
-        <th class="p-2 border">Nombre</th>
-        <th class="p-2 border">Correo</th>
-        <th class="p-2 border">Rol</th>
-        <th class="p-2 border">Acciones</th>
+        <th class="p-2 border">Name</th>
+        <th class="p-2 border">Email</th>
+        <th class="p-2 border">Role</th>
+        <th class="p-2 border">Actions</th>
       </tr>
       </thead>
       <tbody>
@@ -20,7 +20,7 @@
         <td class="p-2 border">{{ u.email }}</td>
         <td class="p-2 border">{{ (u.roles || [u.role]).join(', ') }}</td>
         <td class="p-2 border">
-          <button @click="edit(u)" class="text-blue-600 mr-2">Editar</button>
+          <button @click="edit(u)" class="text-blue-600 mr-2">Edit</button>
           <role-selector :user="u" @change="assignRole(u.id, $event)" />
         </td>
       </tr>

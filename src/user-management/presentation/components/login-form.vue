@@ -3,9 +3,9 @@
     <input v-model="email" type="email" placeholder="Correo electrónico" class="border p-2 rounded" />
     <input v-model="password" type="password" placeholder="Contraseña" class="border p-2 rounded" />
     <label class="text-sm">
-      <input type="checkbox" v-model="remember" /> Recordarme
+      <input type="checkbox" v-model="remember" /> Remember me
     </label>
-    <button type="submit" class="bg-green-600 text-white py-2 rounded">Entrar</button>
+    <button type="submit" class="bg-green-600 text-white py-2 rounded">Enter</button>
   </form>
 </template>
 
