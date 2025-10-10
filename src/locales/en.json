@@ -58,6 +58,15 @@
     "refreshData": "Refresh data",
     "noCategoryData": "No category data available"
   },
+  "about": {
+    "title": "About Pandora's Fresh",
+    "description": "Smart inventory management solution for perishable goods."
+  },
+  "notFound": {
+    "title": "404 - Page Not Found",
+    "description": "The page you're looking for doesn't exist.",
+    "goHome": "Go Home"
+  },
   "common": {
     "loading": "Loading...",
     "success": "Success",

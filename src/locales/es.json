@@ -58,6 +58,15 @@
     "refreshData": "Actualizar datos",
     "noCategoryData": "No hay datos de categoría disponibles"
   },
+  "about": {
+    "title": "Acerca de Pandora's Fresh",
+    "description": "Solución inteligente de gestión de inventario para productos perecederos."
+  },
+  "notFound": {
+    "title": "404 - Página No Encontrada",
+    "description": "La página que buscas no existe.",
+    "goHome": "Ir al Inicio"
+  },
   "common": {
     "loading": "Cargando...",
     "success": "Éxito",
