@@ -3,7 +3,7 @@ import { useI18n } from "vue-i18n";
 import { ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import useInventoryStore from "../../application/inventory.store.js";
-import ProductGrid from "../components/product-grid.vue";
+import ProductList from "./product-list.vue";
 
 const { t } = useI18n();
 const router = useRouter();
@@ -283,7 +283,7 @@ const refreshData = async () => {
 
 .action-card:hover {
   transform: translateY(-2px);
-  border-color: var(--primary-color);
+  border-color: #1cb4d4;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
