@@ -5,7 +5,7 @@
       <nav class="container mx-auto flex justify-between items-center p-4">
         <h1 class="text-xl font-bold">Pandora Fresh</h1>
         <ul class="flex gap-4">
-          <li><router-link to="/" class="hover:underline">Start</router-link></li>
+
 
           <!-- Si NO está autenticado -->
           <template v-if="!store.isAuthenticated">
