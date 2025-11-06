@@ -29,7 +29,14 @@ import {
     Textarea,
     Toast,
     ToastService,
-    Tooltip
+    Tooltip,
+    InputGroup,
+    InputGroupAddon,
+    Divider,
+    Chip,
+    ScrollPanel,
+    TabView,
+    TabPanel
 } from "primevue";
 import router from "./router.js";
 import pinia from "./pinia.js";
@@ -64,6 +71,13 @@ createApp(App)
     .component('pv-tag', Tag)
     .component('pv-textarea', Textarea)
     .component('pv-toast', Toast)
+    .component('pv-input-group', InputGroup)
+    .component('pv-input-group-addon', InputGroupAddon)
+    .component('pv-divider', Divider)
+    .component('pv-chip', Chip)
+    .component('pv-scroll-panel', ScrollPanel)
+    .component('pv-tab-view', TabView)
+    .component('pv-tab-panel', TabPanel)
     .use(router)
     .use(pinia)
     .directive('tooltip', Tooltip)
