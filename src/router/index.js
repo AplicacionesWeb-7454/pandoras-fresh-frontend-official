@@ -1,15 +1,37 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { userManagementRoutes } from '../user-management/presentation/user-management-routes'
-import Login from "@/user-management/presentation/views/login.vue";
+
+// Rutas modulares
+import {userManagementRoutes} from '../user-management/presentation/user-management-routes'
+import inventoryRoutes from '../inventory/presentation/inventory-routes'
+
+// Vistas principales
+import SensorDashboard from '../iot-monitoring/presentation/views/SensorDashboard.vue'
+import Login from '../user-management/presentation/views/Login.vue'
 
 const routes = [
-    { path: '/', redirect: '/login' },
+    {
+        path: '/',
+        redirect: '/login'
+    },
     {
         path: '/login',
         component: Login,
         meta: { public: true }
     },
-    ...userManagementRoutes
+    {
+        path: '/dashboard',
+        component: SensorDashboard,
+        meta: { requiresAuth: true }
+
+    },
+    {
+        path: '/inventory/dashboard',
+        name: 'inventory',
+        children: inventoryRoutes,
+        meta: { title: 'Inventory' }
+    },
+    ...userManagementRoutes,
+    ...inventoryRoutes
 ]
 
 export const router = createRouter({

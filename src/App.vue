@@ -1,40 +1,13 @@
 <template>
-  <div class="min-h-screen flex flex-col bg-gray-50 text-gray-900">
-    <!-- Navbar -->
-    <header class="bg-green-600 text-white shadow">
-      <nav class="container mx-auto flex justify-between items-center p-4">
-        <h1 class="text-xl font-bold">Pandora Fresh</h1>
-        <ul class="flex gap-4">
 
-
-          <!-- Si NO está autenticado -->
-          <template v-if="!store.isAuthenticated">
-            <li><router-link to="/login" class="hover:underline">Login</router-link></li>
-            <li><router-link to="/register" class="hover:underline">Register</router-link></li>
-          </template>
-
-          <!-- Si SÍ está autenticado -->
-          <template v-else>
-            <li><router-link to="/profile" class="hover:underline">Perfil</router-link></li>
-            <li v-if="store.isAdmin"><router-link to="/users" class="hover:underline">User</router-link></li>
-            <li>
-              <button @click="logout" class="hover:underline">Log Out</button>
-            </li>
-          </template>
-        </ul>
-      </nav>
-    </header>
 
     <!-- Contenido dinámico -->
     <main class="flex-1 container mx-auto p-6">
       <router-view />
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-gray-200 text-center py-4">
-      <p>&copy; 2025 Pandora Fresh. All rights reserved.</p>
-    </footer>
-  </div>
+
+
 </template>
 
 <script setup>

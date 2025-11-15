@@ -68,6 +68,8 @@
 import { ref } from 'vue'
 import AuthLayout from '../components/AuthLayout.vue'
 import { loginUseCase } from '../../application/use-cases/login.usecase'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 
 const email = ref('')
 const password = ref('')
@@ -75,7 +77,7 @@ const password = ref('')
 async function onSubmit() {
   try {
     await loginUseCase(email.value, password.value)
-    alert('Session started')
+    router.push('/dashboard')
   } catch (err) {
     alert('Login error')
   }

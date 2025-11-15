@@ -1,4 +1,411 @@
 {
+  "sensors": [
+    {
+      "id": "1-G",
+      "name": "Sensor 1-G",
+      "zone": "Market Stall 1",
+      "location": "Fruit Section",
+      "status": "Active",
+      "lastReading": "2025-10-10T00:26:00Z"
+    },
+    {
+      "id": "1-G2",
+      "name": "Sensor 1-G2",
+      "zone": "Market Stall 2",
+      "location": "Vegetable Section",
+      "status": "Active",
+      "lastReading": "2025-10-10T00:24:00Z"
+    },
+    {
+      "id": "1-G3",
+      "name": "Sensor 1-G3",
+      "zone": "Market Stall 3",
+      "location": "Seafood Section",
+      "status": "Active",
+      "lastReading": "2025-10-10T00:22:00Z"
+    },
+    {
+      "id": "2-A",
+      "name": "Sensor 2-A",
+      "zone": "Restaurant La Pampa",
+      "location": "Main Kitchen",
+      "status": "Active",
+      "lastReading": "2025-10-10T00:20:00Z"
+    },
+    {
+      "id": "2-B",
+      "name": "Sensor 2-B",
+      "zone": "Restaurant La Pampa",
+      "location": "Cold Storage",
+      "status": "Active",
+      "lastReading": "2025-10-10T00:18:00Z"
+    }
+  ],
+  "readings": [
+    {
+      "sensorId": "1-G",
+      "timestamp": "2025-10-10T00:26:00Z",
+      "temperature": 24.9,
+      "humidity": 48.2,
+      "wind": 12
+    },
+    {
+      "sensorId": "1-G2",
+      "timestamp": "2025-10-10T00:24:00Z",
+      "temperature": 23.7,
+      "humidity": 47.0,
+      "wind": 10
+    },
+    {
+      "sensorId": "1-G3",
+      "timestamp": "2025-10-10T00:22:00Z",
+      "temperature": 22.8,
+      "humidity": 46.5,
+      "wind": 9
+    },
+    {
+      "sensorId": "2-A",
+      "timestamp": "2025-10-10T00:20:00Z",
+      "temperature": 25.1,
+      "humidity": 45.3,
+      "wind": 11
+    },
+    {
+      "sensorId": "2-B",
+      "timestamp": "2025-10-10T00:18:00Z",
+      "temperature": 26.0,
+      "humidity": 44.8,
+      "wind": 13
+    }
+  ],
+  "zones": [
+    { "id": 1, "name": "Market Stall 1" },
+    { "id": 2, "name": "Market Stall 2" },
+    { "id": 3, "name": "Market Stall 3" },
+    { "id": 4, "name": "Restaurant La Pampa" }
+  ],
+  "statuses": [
+    { "id": 1, "name": "Active" },
+    { "id": 2, "name": "Inactive" },
+    { "id": 3, "name": "Error" }
+  ],
+  "links": [
+    {
+      "sensorId": "1-G",
+      "zone": "Market Stall 1",
+      "code": "MS1-FR",
+      "notes": "Main sensor for fruit section"
+    },
+    {
+      "sensorId": "1-G2",
+      "zone": "Market Stall 2",
+      "code": "MS2-VE",
+      "notes": "Secondary sensor for vegetables"
+    },
+    {
+      "sensorId": "2-A",
+      "zone": "Restaurant La Pampa",
+      "code": "RLP-K1",
+      "notes": "Temperature sensor in main kitchen"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Fresh Tomatoes",
+      "category": "Vegetables",
+      "quantity": 25,
+      "expirationDate": "2025-04-30",
+      "optimalTemperature": 12,
+      "optimalHumidity": 85,
+      "barcode": "123456789012",
+      "categoryId": 1
+    },
+    {
+      "id": 2,
+      "name": "Organic Milk",
+      "category": "Dairy",
+      "quantity": 8,
+      "expirationDate": "2025-04-20",
+      "optimalTemperature": 4,
+      "optimalHumidity": 75,
+      "barcode": "123456789013",
+      "categoryId": 2
+    }
+  ],
+  "inventory": [
+    {
+      "id": 1,
+      "location": "Main Refrigerator",
+      "capacity": 100,
+      "currentStock": 45,
+      "lastUpdated": "2025-04-15T10:30:00Z"
+    },
+    {
+      "id": 2,
+      "location": "Dry Storage",
+      "capacity": 200,
+      "currentStock": 120,
+      "lastUpdated": "2025-04-15T10:30:00Z"
+    }
+  ],
+  "inventories": [
+    {
+      "id": 1,
+      "name": "Main Refrigerated Inventory",
+      "description": "Primary storage for perishable goods requiring refrigeration",
+      "location": "Warehouse A, Section 1",
+      "createdAt": "2025-01-15T08:00:00Z",
+      "boxes": [1, 2]
+    },
+    {
+      "id": 2,
+      "name": "Dry Goods Storage",
+      "description": "Storage for non-perishable and dry goods",
+      "location": "Warehouse B, Section 2",
+      "createdAt": "2025-02-20T09:15:00Z",
+      "boxes": [3, 4]
+    },
+    {
+      "id": 3,
+      "name": "Frozen Products",
+      "description": "Deep freeze storage for frozen goods",
+      "location": "Cold Room 3",
+      "createdAt": "2025-03-10T14:30:00Z",
+      "boxes": [5]
+    }
+  ],
+  "boxes": [
+    {
+      "id": 1,
+      "inventoryId": 1,
+      "name": "Dairy Section A1",
+      "capacity": 50,
+      "location": "Shelf A1",
+      "currentOccupancy": 35,
+      "storageConditions": {
+        "temperature": 4,
+        "humidity": 75,
+        "type": "refrigerated"
+      },
+      "createdAt": "2025-01-20T10:00:00Z"
+    },
+    {
+      "id": 2,
+      "inventoryId": 1,
+      "name": "Vegetable Drawer B2",
+      "capacity": 40,
+      "location": "Drawer B2",
+      "currentOccupancy": 25,
+      "storageConditions": {
+        "temperature": 8,
+        "humidity": 85,
+        "type": "crisper"
+      },
+      "createdAt": "2025-01-22T11:30:00Z"
+    },
+    {
+      "id": 3,
+      "inventoryId": 2,
+      "name": "Canned Goods Rack C1",
+      "capacity": 100,
+      "location": "Rack C1",
+      "currentOccupancy": 65,
+      "storageConditions": {
+        "temperature": 18,
+        "humidity": 50,
+        "type": "dry"
+      },
+      "createdAt": "2025-02-25T13:45:00Z"
+    },
+    {
+      "id": 4,
+      "inventoryId": 2,
+      "name": "Grains Container D3",
+      "capacity": 80,
+      "location": "Container D3",
+      "currentOccupancy": 45,
+      "storageConditions": {
+        "temperature": 16,
+        "humidity": 45,
+        "type": "dry"
+      },
+      "createdAt": "2025-03-01T09:20:00Z"
+    },
+    {
+      "id": 5,
+      "inventoryId": 3,
+      "name": "Freezer Unit F1",
+      "capacity": 60,
+      "location": "Unit F1",
+      "currentOccupancy": 30,
+      "storageConditions": {
+        "temperature": -18,
+        "humidity": 30,
+        "type": "frozen"
+      },
+      "createdAt": "2025-03-15T16:00:00Z"
+    }
+  ],
+  "productTypes": [
+    {
+      "id": 1,
+      "name": "Fresh Tomatoes",
+      "category": "Vegetables",
+      "optimalTemperature": 12,
+      "optimalHumidity": 85,
+      "barcode": "123456789012",
+      "categoryId": 1,
+      "description": "Fresh vine-ripened tomatoes",
+      "unit": "kg"
+    },
+    {
+      "id": 2,
+      "name": "Organic Milk",
+      "category": "Dairy",
+      "optimalTemperature": 4,
+      "optimalHumidity": 75,
+      "barcode": "123456789013",
+      "categoryId": 2,
+      "description": "Organic whole milk",
+      "unit": "liters"
+    },
+    {
+      "id": 3,
+      "name": "Chicken Breast",
+      "category": "Meat",
+      "optimalTemperature": 2,
+      "optimalHumidity": 80,
+      "barcode": "123456789014",
+      "categoryId": 3,
+      "description": "Boneless chicken breast",
+      "unit": "kg"
+    },
+    {
+      "id": 4,
+      "name": "Canned Beans",
+      "category": "Canned Goods",
+      "optimalTemperature": 18,
+      "optimalHumidity": 50,
+      "barcode": "123456789015",
+      "categoryId": 4,
+      "description": "Canned kidney beans",
+      "unit": "cans"
+    },
+    {
+      "id": 5,
+      "name": "Frozen Peas",
+      "category": "Frozen Foods",
+      "optimalTemperature": -18,
+      "optimalHumidity": 30,
+      "barcode": "123456789016",
+      "categoryId": 5,
+      "description": "Frozen green peas",
+      "unit": "kg"
+    }
+  ],
+  "productInstances": [
+    {
+      "id": 1,
+      "productTypeId": 1,
+      "boxId": 2,
+      "quantity": 15,
+      "entryDate": "2025-04-10T08:00:00Z",
+      "expirationDate": "2025-04-30",
+      "status": "active",
+      "batchNumber": "TOM-20250410"
+    },
+    {
+      "id": 2,
+      "productTypeId": 1,
+      "boxId": 2,
+      "quantity": 10,
+      "entryDate": "2025-04-12T09:30:00Z",
+      "expirationDate": "2025-05-02",
+      "status": "active",
+      "batchNumber": "TOM-20250412"
+    },
+    {
+      "id": 3,
+      "productTypeId": 2,
+      "boxId": 1,
+      "quantity": 8,
+      "entryDate": "2025-04-15T07:45:00Z",
+      "expirationDate": "2025-04-20",
+      "status": "active",
+      "batchNumber": "MIL-20250415"
+    },
+    {
+      "id": 4,
+      "productTypeId": 2,
+      "boxId": 1,
+      "quantity": 12,
+      "entryDate": "2025-04-18T10:15:00Z",
+      "expirationDate": "2025-04-25",
+      "status": "active",
+      "batchNumber": "MIL-20250418"
+    },
+    {
+      "id": 5,
+      "productTypeId": 3,
+      "boxId": 1,
+      "quantity": 15,
+      "entryDate": "2025-04-14T11:20:00Z",
+      "expirationDate": "2025-04-21",
+      "status": "active",
+      "batchNumber": "CHK-20250414"
+    },
+    {
+      "id": 6,
+      "productTypeId": 4,
+      "boxId": 3,
+      "quantity": 25,
+      "entryDate": "2025-03-20T14:00:00Z",
+      "expirationDate": "2026-03-20",
+      "status": "active",
+      "batchNumber": "CAN-20250320"
+    },
+    {
+      "id": 7,
+      "productTypeId": 4,
+      "boxId": 3,
+      "quantity": 20,
+      "entryDate": "2025-04-05T16:30:00Z",
+      "expirationDate": "2026-04-05",
+      "status": "active",
+      "batchNumber": "CAN-20250405"
+    },
+    {
+      "id": 8,
+      "productTypeId": 4,
+      "boxId": 4,
+      "quantity": 20,
+      "entryDate": "2025-04-08T13:15:00Z",
+      "expirationDate": "2026-04-08",
+      "status": "active",
+      "batchNumber": "CAN-20250408"
+    },
+    {
+      "id": 9,
+      "productTypeId": 5,
+      "boxId": 5,
+      "quantity": 15,
+      "entryDate": "2025-04-12T12:00:00Z",
+      "expirationDate": "2026-04-12",
+      "status": "active",
+      "batchNumber": "FZN-20250412"
+    },
+    {
+      "id": 10,
+      "productTypeId": 5,
+      "boxId": 5,
+      "quantity": 15,
+      "entryDate": "2025-04-16T15:45:00Z",
+      "expirationDate": "2026-04-16",
+      "status": "active",
+      "batchNumber": "FZN-20250416"
+    }
+  ],
   "users": [
     {
       "id": "1",
