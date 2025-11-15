@@ -10,6 +10,7 @@
       <img src="/icons/dashboard.svg" alt="Inventario" @click="goToInventory" />
       <img src="/icons/sensor.svg" alt="Sensores" @click="goToSensors" />
       <img src="/icons/stats.svg" alt="Analitica" @click="goToAnalytics" />
+      <img src="/icons/warning.png" alt="Alertas" @click="goToAlerts" />
       <img src="/icons/usuario.svg" alt="Configuración" />
     </div>
   </div>
@@ -23,10 +24,13 @@ function goToInventory() {
   router.push('/inventory/dashboard')
 }
 function goToSensors() {
-  router.push('/dashboard') // ← SensorDashboard.vue
+  router.push('/dashboard')
 }
 function goToAnalytics() {
-  router.push('/analytics/dashboard')  // ← NUEVA FUNCIÓN
+  router.push('/analytics/dashboard')
+}
+function goToAlerts() {
+  router.push('/alerts')  // ← Cambiar de '/alerts/management' a '/alerts'
 }
 </script>
 

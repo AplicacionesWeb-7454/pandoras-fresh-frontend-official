@@ -1,0 +1,89 @@
+﻿.layout {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    background: #f8f9fb;
+    overflow: hidden;
+}
+
+.sidebar {
+    width: 80px;
+    background: #009639;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    position: fixed;
+    top: 0; bottom: 0; left: 0;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.menu button,
+.settings button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s, color 0.2s;
+}
+
+.menu button:hover,
+.settings button:hover {
+    transform: scale(1.1);
+    color: #dfffe0;
+}
+
+.settings {
+    margin-bottom: 1rem;
+}
+
+.main {
+    flex: 1;
+    margin-left: 80px;
+    width: calc(100vw - 80px);
+    padding: 2rem 3rem;
+    overflow-y: auto;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+    gap: 1.5rem;
+}
+
+.card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.btn-primario {
+    background: #009639;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.8rem;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-secundario {
+    border: 1px solid #ccc;
+    background: white;
+    padding: 0.8rem 1.8rem;
+    border-radius: 8px;
+    cursor: pointer;
+}
