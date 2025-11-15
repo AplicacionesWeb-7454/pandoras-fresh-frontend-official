@@ -1,10 +1,9 @@
 <template>
 
 
-    <!-- Contenido dinámico -->
-    <main class="flex-1 container mx-auto p-6">
+
       <router-view />
-    </main>
+
 
 
 
