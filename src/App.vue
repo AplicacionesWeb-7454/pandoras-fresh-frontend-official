@@ -31,8 +31,10 @@ const isPublicRoute = computed(() => route.meta.public)
 
 .main-content {
   flex: 1;
+  margin-left: 60px;  /* Espacio para el sidebar fijo */
   overflow-y: auto;
   background-color: #f5f5f5;
   width: 100%;
+  padding-left: 0;  /* Sin padding adicional */
 }
 </style>

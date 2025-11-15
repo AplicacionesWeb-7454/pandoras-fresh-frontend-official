@@ -9,7 +9,7 @@
     <div class="middle-icons">
       <img src="/icons/dashboard.svg" alt="Inventario" @click="goToInventory" />
       <img src="/icons/sensor.svg" alt="Sensores" @click="goToSensors" />
-      <img src="/icons/stats.svg" alt="Analitica" />
+      <img src="/icons/stats.svg" alt="Analitica" @click="goToAnalytics" />
       <img src="/icons/usuario.svg" alt="Configuración" />
     </div>
   </div>
@@ -25,6 +25,9 @@ function goToInventory() {
 function goToSensors() {
   router.push('/dashboard') // ← SensorDashboard.vue
 }
+function goToAnalytics() {
+  router.push('/analytics/dashboard')  // ← NUEVA FUNCIÓN
+}
 </script>
 
 <style scoped>
@@ -37,7 +40,10 @@ function goToSensors() {
   flex-direction: column;
   align-items: center;
   height: 100vh;
-  position: relative;
+  position: fixed;  /* ← CAMBIO: de relative a fixed */
+  left: 0;          /* ← NUEVO */
+  top: 0;           /* ← NUEVO */
+  z-index: 1000;    /* ← NUEVO: para que esté encima del contenido */
 }
 
 .top-icon {
@@ -55,7 +61,7 @@ function goToSensors() {
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
-  gap: 3rem; /* Separación más amplia entre íconos */
+  gap: 3rem;
   align-items: center;
 }
 
@@ -63,5 +69,10 @@ function goToSensors() {
   width: 25px;
   height: 25px;
   cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.middle-icons img:hover {
+  transform: scale(1.1);
 }
 </style>
