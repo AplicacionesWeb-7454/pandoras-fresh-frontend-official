@@ -12,11 +12,14 @@ const boxForm = () => import('./views/box-form.vue');
 const productRegistration = () => import('./views/product-registration.vue');
 
 const inventoryRoutes = [
+    // Default redirect - debe ir primero
+    { path: '/inventory', redirect: '/inventory/dashboard' },
+
     // Simple inventory routes (existing - maintain these)
+    { path: '/inventory/dashboard',          name: 'inventory-dashboard',     component: inventoryDashboard, meta: { title: 'Inventory Dashboard' }},
     { path: '/inventory/products',           name: 'inventory-products',      component: productList, meta: { title: 'Products' }},
     { path: '/inventory/products/new',       name: 'inventory-product-new',   component: productForm, meta: { title: 'New Product' }},
     { path: '/inventory/products/:id/edit',  name: 'inventory-product-edit',  component: productForm, meta: { title: 'Edit Product' }},
-    { path: '/inventory/dashboard',          name: 'inventory-dashboard',     component: inventoryDashboard, meta: { title: 'Inventory Dashboard' }},
 
     // Advanced box-based inventory routes (new)
     { path: '/inventory/management/inventories',         name: 'inventory-management-list',      component: inventoryList, meta: { title: 'Manage Inventories' }},
@@ -25,10 +28,7 @@ const inventoryRoutes = [
     { path: '/inventory/management/inventories/:id/edit', name: 'inventory-management-edit',     component: inventoryForm, meta: { title: 'Edit Inventory' }},
     { path: '/inventory/management/boxes/:id',           name: 'box-detail',                     component: boxDetail, meta: { title: 'Box Details' }},
     { path: '/inventory/management/boxes/:id/edit',      name: 'box-edit',                       component: boxForm, meta: { title: 'Edit Box' }},
-    { path: '/inventory/management/products/register',   name: 'product-registration',           component: productRegistration, meta: { title: 'Register Product' }},
-
-    // Default redirect
-    { path: '/inventory/dashboard', name: 'inventory-dashboard', component: inventoryDashboard }
+    { path: '/inventory/management/products/register',   name: 'product-registration',           component: productRegistration, meta: { title: 'Register Product' }}
 ];
 
 export default inventoryRoutes;

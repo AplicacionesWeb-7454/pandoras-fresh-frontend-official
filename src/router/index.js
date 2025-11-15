@@ -22,16 +22,9 @@ const routes = [
         path: '/dashboard',
         component: SensorDashboard,
         meta: { requiresAuth: true }
-
-    },
-    {
-        path: '/inventory/dashboard',
-        name: 'inventory',
-        children: inventoryRoutes,
-        meta: { title: 'Inventory' }
     },
     ...userManagementRoutes,
-    ...inventoryRoutes
+    ...inventoryRoutes  // ← Así de simple, sin wrappers
 ]
 
 export const router = createRouter({

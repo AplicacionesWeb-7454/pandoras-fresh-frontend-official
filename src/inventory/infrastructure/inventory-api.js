@@ -47,24 +47,24 @@ export class InventoryApi extends BaseApi {
     }
 
     getInventoryById(id) {
-        return this.#inventoryEndpoint.getById(id);
+        return this.http.get(`/inventories/${id}`); // ← CAMBIO (era inventoryEndpointPath)
     }
 
     updateInventory(resource) {
-        return this.#inventoryEndpoint.update(resource.id, resource);
+        return this.http.update(`/inventories/${resource.id}`, resource); // ← CAMBIO
     }
 
     // New inventory management endpoints
     getInventories() {
-        return this.http.get(`${inventoryEndpointPath}/management`);
+        return this.http.get('/inventories'); // ← CAMBIO
     }
 
     createInventory(resource) {
-        return this.http.post(`${inventoryEndpointPath}/management`, resource);
+        return this.http.post('/inventories', resource); // ← CAMBIO
     }
 
     deleteInventory(id) {
-        return this.http.delete(`${inventoryEndpointPath}/management/${id}`);
+        return this.http.delete(`/inventories/${id}`); // ← CAMBIO
     }
 
     // Boxes endpoints

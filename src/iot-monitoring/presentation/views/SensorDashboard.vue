@@ -1,6 +1,5 @@
 <template>
   <div class="layout">
-    <Sidebar @add="showModal = true" />
 
     <div class="main-content">
       <!-- 🔍 Header with search and filter -->
