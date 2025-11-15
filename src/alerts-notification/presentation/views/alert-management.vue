@@ -1,7 +1,5 @@
 ﻿<script setup>
-//import { useAlertStore } from "../../../../alert-notification/src/application/alert.store.js";
 import {useAlertStore} from "@/alerts-notification/application/alert.store.js";
-import { Home, ClipboardList, Thermometer, BarChart3, Settings } from "lucide-vue-next";
 
 const { alerts, markAsResolved } = useAlertStore();
 
@@ -11,21 +9,7 @@ const guardarCambios = () => {
 </script>
 
 <template>
-  <div class="layout">
-    <!-- Sidebar verde -->
-    <aside class="sidebar">
-      <nav class="menu">
-        <button><Home :size="22" /></button>
-        <button><ClipboardList :size="22" /></button>
-        <button><Thermometer :size="22" /></button>
-        <button><BarChart3 :size="22" /></button>
-      </nav>
-
-      <div class="settings">
-        <button><Settings :size="22" /></button>
-      </div>
-    </aside>
-
+  <div class="alert-management">
     <!-- Contenido principal -->
     <main class="main">
       <header class="header">
@@ -59,57 +43,16 @@ const guardarCambios = () => {
 </template>
 
 <style scoped>
-.layout {
-  display: flex;
-  height: 100vh;
-  width: 100vw;
+.alert-management {
+  width: 100%;
+  min-height: 100vh;
   background: #f8f9fb;
-  overflow: hidden;
 }
-
-/* Sidebar verde */
-.sidebar {
-  width: 80px;
-  background: #009639;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 0;
-  position: fixed;
-  top: 0; bottom: 0; left: 0;
-}
-
-.menu {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.menu button,
-.settings button {
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
-  transition: transform 0.2s, color 0.2s;
-}
-
-.menu button:hover,
-.settings button:hover {
-  transform: scale(1.1);
-  color: #dfffe0;
-}
-
-.settings { margin-bottom: 1rem; }
 
 /* Main */
 .main {
-  flex: 1;
-  margin-left: 80px;
-  width: calc(100vw - 80px);
+  width: 100%;
   padding: 2rem 3rem;
-  overflow-y: auto;
 }
 
 /* Header */
@@ -120,10 +63,23 @@ const guardarCambios = () => {
   margin-bottom: 2rem;
 }
 
+.header h3 {
+  margin: 0;
+  color: #2e7d32;
+  font-size: 1.8rem;
+}
+
 .header select {
-  padding: 0.5rem;
+  padding: 0.6rem 1rem;
   border-radius: 6px;
   border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.header select:hover {
+  border-color: #4CAF50;
 }
 
 /* Cards */
@@ -131,64 +87,134 @@ const guardarCambios = () => {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
   gap: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .card {
   background: white;
   padding: 1.5rem;
   border-radius: 10px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
 }
 
 .card h4 {
   color: #009639;
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+}
+
+.card p {
+  color: #666;
+  margin: 0.5rem 0;
+  line-height: 1.6;
 }
 
 .estado {
   display: inline-block;
   margin-top: 0.8rem;
   font-size: 0.9rem;
-  padding: 0.3rem 0.6rem;
+  font-weight: 500;
+  padding: 0.4rem 0.8rem;
   border-radius: 6px;
   text-transform: capitalize;
 }
 
-.estado.active { background: #ffebeb; color: #b30000; }
-.estado.pending { background: #fff4e5; color: #cc7a00; }
-.estado.resolved { background: #e6ffed; color: #008f3f; }
+.estado.active {
+  background: #ffebeb;
+  color: #b30000;
+}
+
+.estado.pending {
+  background: #fff4e5;
+  color: #cc7a00;
+}
+
+.estado.resolved {
+  background: #e6ffed;
+  color: #008f3f;
+}
 
 .card button {
   margin-top: 1rem;
-  background: #009639;
+  background: #4CAF50;
   color: white;
   border: none;
-  padding: 0.6rem 1.2rem;
+  padding: 0.6rem 1.5rem;
   border-radius: 6px;
   cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.card button:hover {
+  background: #45a049;
 }
 
 /* Footer acciones */
 .acciones {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   gap: 1rem;
   margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #e0e0e0;
 }
 
 .btn-primario {
-  background: #009639;
+  background: #4CAF50;
   color: white;
   border: none;
   padding: 0.9rem 2rem;
   border-radius: 8px;
   cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.btn-primario:hover {
+  background: #45a049;
 }
 
 .btn-secundario {
   border: 1px solid #ccc;
   background: white;
+  color: #666;
   padding: 0.9rem 2rem;
   border-radius: 8px;
   cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.btn-secundario:hover {
+  background: #f5f5f5;
+  border-color: #999;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main {
+    padding: 1.5rem;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .acciones {
+    flex-direction: column;
+  }
 }
 </style>
