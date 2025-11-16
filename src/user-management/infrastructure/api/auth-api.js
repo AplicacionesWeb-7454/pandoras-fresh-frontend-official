@@ -1,23 +1,100 @@
-import api from './axios-client'
+import {
+    collection,
+    getDocs,
+    addDoc,
+    query,
+    where
+} from 'firebase/firestore'
+import { db } from '@/firebase/config'
 
 export const authApi = {
     async login(email, password) {
-        const { data } = await api.get(`/users`, {
-            params: { email, password }
-        })
-        if (!data.length) throw new Error('Credenciales inválidas')
-        return data[0] // devuelve el usuario encontrado
+        try {
+            const q = query(
+                collection(db, 'users'),
+                where('email', '==', email)
+            )
+
+            const querySnapshot = await getDocs(q)
+
+            if (querySnapshot.empty) {
+                throw new Error('Credenciales inválidas')
+            }
+
+            const userDoc = querySnapshot.docs[0]
+            const userData = userDoc.data()
+
+            // Verificar password
+            if (userData.password !== password) {
+                throw new Error('Credenciales inválidas')
+            }
+
+            // Retornar usuario encontrado
+            return {
+                id: userDoc.id,
+                email: userData.email,
+                company: userData.company,
+                ruc: userData.ruc
+            }
+        } catch (error) {
+            console.error('Login error:', error)
+            throw error
+        }
     },
 
     async register(payload) {
-        const { data } = await api.post('/users', payload)
-        return data
+        try {
+            // Verificar si el email ya existe
+            const q = query(
+                collection(db, 'users'),
+                where('email', '==', payload.email)
+            )
+
+            const querySnapshot = await getDocs(q)
+
+            if (!querySnapshot.empty) {
+                throw new Error('El email ya está registrado')
+            }
+
+            // Crear nuevo usuario
+            const docRef = await addDoc(collection(db, 'users'), {
+                email: payload.email,
+                password: payload.password,
+                company: payload.company || '',
+                ruc: payload.ruc || '',
+                createdAt: new Date().toISOString()
+            })
+
+            return {
+                id: docRef.id,
+                ...payload
+            }
+        } catch (error) {
+            console.error('Register error:', error)
+            throw error
+        }
     },
 
     async resetPassword(email) {
-        // Como json-server no tiene lógica de reset, lo simulamos
-        const { data } = await api.get(`/users`, { params: { email } })
-        if (!data.length) throw new Error('Usuario no encontrado')
-        return { message: 'Instrucciones de reseteo enviadas (simulado)' }
+        try {
+            const q = query(
+                collection(db, 'users'),
+                where('email', '==', email)
+            )
+
+            const querySnapshot = await getDocs(q)
+
+            if (querySnapshot.empty) {
+                throw new Error('Usuario no encontrado')
+            }
+
+            // Simulación de reset (en producción usar Firebase Auth)
+            return {
+                message: 'Instrucciones de reseteo enviadas (simulado)'
+            }
+        } catch (error) {
+            console.error('Reset password error:', error)
+            throw error
+        }
     }
 }

@@ -1,129 +1,204 @@
-import {BaseApi} from "../shared/infrastructure/base-api.js";
-import {BaseEndpoint} from "../shared/infrastructure/base-endpoint.js";
+import {
+    collection,
+    getDocs,
+    getDoc,
+    addDoc,
+    doc,
+    updateDoc,
+    deleteDoc,
+    query,
+    where
+} from 'firebase/firestore'
+import { db } from '@/firebase/config'
 
-const productsEndpointPath = import.meta.env.VITE_PRODUCTS_ENDPOINT_PATH || '/products';
-const inventoryEndpointPath = import.meta.env.VITE_INVENTORY_ENDPOINT_PATH || '/inventory';
-const boxesEndpointPath = import.meta.env.VITE_BOXES_ENDPOINT_PATH || '/boxes';
-const productInstancesEndpointPath = import.meta.env.VITE_PRODUCT_INSTANCES_ENDPOINT_PATH || '/productInstances';
-
-export class InventoryApi extends BaseApi {
-    #productsEndpoint;
-    #inventoryEndpoint;
-    #boxesEndpoint;
-    #productInstancesEndpoint;
-
-    constructor() {
-        super();
-        this.#productsEndpoint = new BaseEndpoint(this, productsEndpointPath);
-        this.#inventoryEndpoint = new BaseEndpoint(this, inventoryEndpointPath);
-        this.#boxesEndpoint = new BaseEndpoint(this, boxesEndpointPath);
-        this.#productInstancesEndpoint = new BaseEndpoint(this, productInstancesEndpointPath);
+export class InventoryApi {
+    // INVENTORIES
+    async getInventories() {
+        const querySnapshot = await getDocs(collection(db, 'inventories'))
+        return {
+            data: querySnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }))
+        }
     }
 
-    // Products endpoints (existing)
-    getProducts() {
-        return this.#productsEndpoint.getAll();
+    async getInventoryById(id) {
+        const docRef = doc(db, 'inventories', String(id))
+        const docSnap = await getDoc(docRef)
+
+        if (docSnap.exists()) {
+            return {
+                data: { id: docSnap.id, ...docSnap.data() }
+            }
+        } else {
+            throw new Error('Inventory not found')
+        }
     }
 
-    getProductById(id) {
-        return this.#productsEndpoint.getById(id);
+    async createInventory(resource) {
+        const docRef = await addDoc(collection(db, 'inventories'), {
+            ...resource,
+            createdAt: new Date().toISOString()
+        })
+        return {
+            data: { id: docRef.id, ...resource }
+        }
     }
 
-    createProduct(resource) {
-        return this.#productsEndpoint.create(resource);
+    async updateInventory(resource) {
+        const docRef = doc(db, 'inventories', String(resource.id))
+        await updateDoc(docRef, resource)
+        return {
+            data: resource
+        }
     }
 
-    updateProduct(resource) {
-        return this.#productsEndpoint.update(resource.id, resource);
+    async deleteInventory(id) {
+        await deleteDoc(doc(db, 'inventories', String(id)))
+        return {
+            data: { id }
+        }
     }
 
-    deleteProduct(id) {
-        return this.#productsEndpoint.delete(id);
+    // BOXES
+    async getBoxesByInventory(inventoryId) {
+        const q = query(
+            collection(db, 'boxes'),
+            where('inventoryId', '==', Number(inventoryId))
+        )
+        const querySnapshot = await getDocs(q)
+        return {
+            data: querySnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }))
+        }
     }
 
-    // Inventory endpoints (existing)
+    async getBoxById(id) {
+        const docRef = doc(db, 'boxes', String(id))
+        const docSnap = await getDoc(docRef)
+
+        if (docSnap.exists()) {
+            return {
+                data: { id: docSnap.id, ...docSnap.data() }
+            }
+        } else {
+            throw new Error('Box not found')
+        }
+    }
+
+    async createBox(resource) {
+        const docRef = await addDoc(collection(db, 'boxes'), {
+            ...resource,
+            createdAt: new Date().toISOString()
+        })
+        return {
+            data: { id: docRef.id, ...resource }
+        }
+    }
+
+    async updateBox(resource) {
+        const docRef = doc(db, 'boxes', String(resource.id))
+        await updateDoc(docRef, resource)
+        return {
+            data: resource
+        }
+    }
+
+    async deleteBox(id) {
+        await deleteDoc(doc(db, 'boxes', String(id)))
+        return {
+            data: { id }
+        }
+    }
+
+    // PRODUCTS
+    async getProducts() {
+        const querySnapshot = await getDocs(collection(db, 'products'))
+        return {
+            data: querySnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }))
+        }
+    }
+
+    async getProductById(id) {
+        const docRef = doc(db, 'products', String(id))
+        const docSnap = await getDoc(docRef)
+
+        if (docSnap.exists()) {
+            return {
+                data: { id: docSnap.id, ...docSnap.data() }
+            }
+        } else {
+            throw new Error('Product not found')
+        }
+    }
+
+    async createProduct(resource) {
+        const docRef = await addDoc(collection(db, 'products'), resource)
+        return {
+            data: { id: docRef.id, ...resource }
+        }
+    }
+
+    async updateProduct(resource) {
+        const docRef = doc(db, 'products', String(resource.id))
+        await updateDoc(docRef, resource)
+        return {
+            data: resource
+        }
+    }
+
+    async deleteProduct(id) {
+        await deleteDoc(doc(db, 'products', String(id)))
+        return {
+            data: { id }
+        }
+    }
+
+    // PRODUCT INSTANCES
+    async getProductInstancesByBox(boxId) {
+        const q = query(
+            collection(db, 'productInstances'),
+            where('boxId', '==', Number(boxId))
+        )
+        const querySnapshot = await getDocs(q)
+        return {
+            data: querySnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }))
+        }
+    }
+
+    async createProductInstance(resource) {
+        const docRef = await addDoc(collection(db, 'productInstances'), resource)
+        return {
+            data: { id: docRef.id, ...resource }
+        }
+    }
+
+    async updateProductInstance(resource) {
+        const docRef = doc(db, 'productInstances', String(resource.id))
+        await updateDoc(docRef, resource)
+        return {
+            data: resource
+        }
+    }
+
+    async deleteProductInstance(id) {
+        await deleteDoc(doc(db, 'productInstances', String(id)))
+        return {
+            data: { id }
+        }
+    }
+
+    // LEGACY METHOD (compatibilidad)
     getInventory() {
-        return this.#inventoryEndpoint.getAll();
-    }
-
-    getInventoryById(id) {
-        return this.http.get(`/inventories/${id}`); // ← CAMBIO (era inventoryEndpointPath)
-    }
-
-    updateInventory(resource) {
-        return this.http.update(`/inventories/${resource.id}`, resource); // ← CAMBIO
-    }
-
-    // New inventory management endpoints
-    getInventories() {
-        return this.http.get('/inventories'); // ← CAMBIO
-    }
-
-    createInventory(resource) {
-        return this.http.post('/inventories', resource); // ← CAMBIO
-    }
-
-    deleteInventory(id) {
-        return this.http.delete(`/inventories/${id}`); // ← CAMBIO
-    }
-
-    // Boxes endpoints
-    getBoxesByInventory(inventoryId) {
-        return this.http.get(`${boxesEndpointPath}?inventoryId=${inventoryId}`);
-    }
-
-    getBoxById(id) {
-        return this.http.get(`${boxesEndpointPath}/${id}`);
-    }
-
-    createBox(resource) {
-        return this.http.post(boxesEndpointPath, resource);
-    }
-
-    updateBox(resource) {
-        return this.http.put(`${boxesEndpointPath}/${resource.id}`, resource);
-    }
-
-    deleteBox(id) {
-        return this.http.delete(`${boxesEndpointPath}/${id}`);
-    }
-
-    // Product instances endpoints
-    getProductInstancesByBox(boxId) {
-        return this.http.get(`${productInstancesEndpointPath}?boxId=${boxId}`);
-    }
-
-    getProductInstancesByInventory(inventoryId) {
-        return this.http.get(`${productInstancesEndpointPath}?inventoryId=${inventoryId}`);
-    }
-
-    createProductInstance(resource) {
-        return this.http.post(productInstancesEndpointPath, resource);
-    }
-
-    updateProductInstance(resource) {
-        return this.http.put(`${productInstancesEndpointPath}/${resource.id}`, resource);
-    }
-
-    deleteProductInstance(id) {
-        return this.http.delete(`${productInstancesEndpointPath}/${id}`);
-    }
-
-    // Specialized methods for inventory (existing)
-    getExpiringProducts(days = 3) {
-        return this.http.get(`${productsEndpointPath}?expiringIn=${days}`);
-    }
-
-    getLowStockProducts(threshold = 10) {
-        return this.http.get(`${productsEndpointPath}?lowStock=${threshold}`);
-    }
-
-    // Product search and filtering (existing)
-    searchProducts(query) {
-        return this.http.get(`${productsEndpointPath}?search=${encodeURIComponent(query)}`);
-    }
-
-    getProductsByCategory(categoryId) {
-        return this.http.get(`${productsEndpointPath}?categoryId=${categoryId}`);
+        return this.getInventories()
     }
 }

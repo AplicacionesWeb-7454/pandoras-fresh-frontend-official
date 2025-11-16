@@ -1,29 +1,48 @@
-﻿import { ref } from "vue";
-//import { Alert } from "../../../notificaciones/src/Domain/Model/alert.entity.js";
-import {Alert} from "@/alerts-notification/Domain/Model/alert.entity.js";
+﻿import { ref } from "vue"
+import { Alert } from "../Domain/Model/alert.entity.js"
+import { AlertAPI } from "@/alerts-notification/infraestructure/alert-api.js"
 
 export const useAlertStore = () => {
-    const alerts = ref([
-        new Alert({
-            id: 1,
-            title: "Frigorífico 1 – Productos vencidos",
-            description: "Detectados 3 productos próximos a vencer.",
-            status: "active",
-            createdAt: new Date(),
-        }),
-        new Alert({
-            id: 2,
-            title: "Frigorífico 2 – Retiro incompleto",
-            description: "Faltan evidencias fotográficas del retiro.",
-            status: "pending",
-            createdAt: new Date(),
-        }),
-    ]);
+    const alerts = ref([])
+    const loading = ref(false)
+    const error = ref(null)
 
-    const markAsResolved = (id) => {
-        const alert = alerts.value.find(a => a.id === id);
-        if (alert) alert.status = "resolved";
-    };
+    // Cargar alertas desde Firestore
+    const fetchAlerts = async () => {
+        loading.value = true
+        error.value = null
+        try {
+            const data = await AlertAPI.fetchAlerts()
+            // Convertir datos de Firestore a entidades Alert
+            alerts.value = data.map(alertData => new Alert(alertData))
+        } catch (err) {
+            error.value = err.message
+            console.error('Error fetching alerts:', err)
+            alerts.value = []
+        } finally {
+            loading.value = false
+        }
+    }
 
-    return { alerts, markAsResolved };
-};
+    // Marcar como resuelta
+    const markAsResolved = async (id) => {
+        try {
+            await AlertAPI.markAsResolved(id)
+            const alert = alerts.value.find(a => a.id === id)
+            if (alert) {
+                alert.status = "resolved"
+            }
+        } catch (err) {
+            error.value = err.message
+            console.error('Error marking alert as resolved:', err)
+        }
+    }
+
+    return {
+        alerts,
+        loading,
+        error,
+        fetchAlerts,
+        markAsResolved
+    }
+}

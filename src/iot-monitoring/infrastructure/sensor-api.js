@@ -1,26 +1,41 @@
-const BASE_URL = import.meta.env.VITE_MONITORING_API_URL;
-const SENSORS_ENDPOINT = import.meta.env.VITE_SENSORS_ENDPOINT;
-const READINGS_ENDPOINT = import.meta.env.VITE_READINGS_ENDPOINT;
+import {
+    collection,
+    getDocs,
+    query,
+    where,
+    orderBy
+} from 'firebase/firestore'
+import { db } from '@/firebase/config'
 
 export async function fetchSensors() {
     try {
-        const [sensorsRes, readingsRes] = await Promise.all([
-            fetch(`${BASE_URL}${SENSORS_ENDPOINT}`),
-            fetch(`${BASE_URL}${READINGS_ENDPOINT}`)
-        ]);
+        // Obtener sensores y readings en paralelo
+        const [sensorsSnapshot, readingsSnapshot] = await Promise.all([
+            getDocs(collection(db, 'sensors')),
+            getDocs(collection(db, 'readings'))
+        ])
 
-        if (!sensorsRes.ok || !readingsRes.ok) throw new Error('Error fetching data');
+        // Convertir a arrays
+        const sensors = sensorsSnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }))
 
-        const sensors = await sensorsRes.json();
-        const readings = await readingsRes.json();
+        const readings = readingsSnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }))
 
+        // Combinar sensores con sus lecturas
         return sensors.map(sensor => {
-            const reading = readings.find(r => r.sensorId === sensor.id);
+            const reading = readings.find(r => r.sensorId === sensor.id)
 
             return {
                 id: sensor.id,
                 name: sensor.name,
                 description: `Zone: ${sensor.zone}, ${sensor.location}`,
+                zone: sensor.zone,
+                location: sensor.location,
                 status: sensor.status,
                 lastReading: formatRelativeTime(sensor.lastReading),
                 readings: reading
@@ -34,17 +49,17 @@ export async function fetchSensors() {
                         humidity: null,
                         wind: null
                     }
-            };
-        });
+            }
+        })
     } catch (error) {
-        console.error('❌ fetchSensors error:', error);
-        return [];
+        console.error('❌ fetchSensors error:', error)
+        return []
     }
 }
 
 function formatRelativeTime(timestamp) {
-    const now = new Date();
-    const time = new Date(timestamp);
-    const minutes = Math.floor((now - time) / 60000);
-    return `Hace ${minutes} minuto${minutes !== 1 ? 's' : ''}`;
+    const now = new Date()
+    const time = new Date(timestamp)
+    const minutes = Math.floor((now - time) / 60000)
+    return `Hace ${minutes} minuto${minutes !== 1 ? 's' : ''}`
 }
