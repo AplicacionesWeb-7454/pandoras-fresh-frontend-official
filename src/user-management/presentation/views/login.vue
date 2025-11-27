@@ -42,22 +42,10 @@
     <!-- Separador -->
     <div class="divider">o</div>
 
-    <!-- Botones sociales -->
-    <div class="flex gap-4 justify-center">
-      <button class="btn btn-outline w-full flex items-center gap-2">
-        <img src="https://www.svgrepo.com/show/355037/google.svg" alt="" class="w-5 h-5" />
-        Google
-      </button>
-      <button class="btn btn-outline w-full flex items-center gap-2">
-        <img src="https://www.svgrepo.com/show/303145/microsoft.svg" alt="" class="w-5 h-5" />
-        Microsoft
-      </button>
-    </div>
-
     <!-- Footer -->
     <p class="text-center text-sm text-gray-600 mt-6">
       Don't have an account?
-      <router-link to="/register" class="link link-success">Create a</router-link>
+      <router-link to="/register" class="link link-success">Create account</router-link>
     </p>
   </AuthLayout>
 
