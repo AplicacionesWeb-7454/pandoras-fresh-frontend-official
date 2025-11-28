@@ -35,45 +35,43 @@
 
     <div class="divider"></div>
 
-    <!-- Productos disponibles vs caducados -->
-    <div class="availability-section">
-      <div class="section-title">Productos disponibles</div>
-      <div class="section-subtitle">Productos caducados</div>
-      <div class="percentages-row">
-        <div class="percentage-item">
-          <div class="percentage-value">{{ productsStore.availablePercent }}%</div>
-          <div class="percentage-label">Disponibles</div>
+    <!-- Gráficos Donut - Productos disponibles vs caducados -->
+    <div class="charts-section">
+      <div class="section-title">Distribución de Productos</div>
+      <div class="charts-grid">
+        <div class="chart-container">
+          <h3>Disponibles vs Caducados</h3>
+          <canvas ref="availabilityChart"></canvas>
+          <div class="chart-legend">
+            <div class="legend-item">
+              <span class="legend-dot" style="background: #4CAF50;"></span>
+              <span>Disponibles: {{ productsStore.availablePercent }}%</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot" style="background: #F44336;"></span>
+              <span>Caducados: {{ productsStore.expiredPercent }}%</span>
+            </div>
+          </div>
         </div>
-        <div class="percentage-item">
-          <div class="percentage-value">{{ productsStore.expiredPercent }}%</div>
-          <div class="percentage-label">Caducados</div>
-        </div>
-      </div>
-    </div>
 
-    <div class="divider"></div>
-
-    <!-- Por caducar y alerta -->
-    <div class="status-section">
-      <div class="section-title">Por caducar y alerta</div>
-      <div class="status-list">
-        <div class="status-item">
-          <span class="status-dot available"></span>
-          <span>Disponibles</span>
+        <div class="chart-container">
+          <h3>Estado por Condición</h3>
+          <canvas ref="statusChart"></canvas>
+          <div class="chart-legend">
+            <div class="legend-item">
+              <span class="legend-dot" style="background: #4CAF50;"></span>
+              <span>Disponibles: {{ productsStore.statusBreakdown.available }}</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot" style="background: #FF9800;"></span>
+              <span>Por caducar: {{ productsStore.statusBreakdown.expiring }}</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot" style="background: #F44336;"></span>
+              <span>En alerta: {{ productsStore.statusBreakdown.alert }}</span>
+            </div>
+          </div>
         </div>
-        <div class="status-item">
-          <span class="status-dot expiring"></span>
-          <span>Por caducar</span>
-        </div>
-        <div class="status-item">
-          <span class="status-dot alert"></span>
-          <span>En condicion de alerta</span>
-        </div>
-      </div>
-      <div class="status-counts">
-        <div>{{ productsStore.statusBreakdown.available }}</div>
-        <div>{{ productsStore.statusBreakdown.expiring }}</div>
-        <div>{{ productsStore.statusBreakdown.alert }}</div>
       </div>
     </div>
 
@@ -128,7 +126,7 @@
         <form @submit.prevent="addProduct" class="product-form">
           <div class="form-group">
             <label>Nombre del Producto:</label>
-            <input v-model="newProduct.name" type="text" placeholder="Ej: Tomásic Cherry" required>
+            <input v-model="newProduct.name" type="text" placeholder="Ej: Tomate Cherry" required>
           </div>
 
           <div class="form-group">
@@ -198,8 +196,11 @@
 </template>
 
 <script>
-import { useProductsStore } from '../../stores/products-store.js'
-import { ref, computed, onMounted } from 'vue'
+import { useProductsStore } from '/src/reporting-analytics/stores/products-store.js'
+import { ref, computed, onMounted, watch, nextTick } from 'vue'
+import { Chart, ArcElement, Tooltip, Legend } from 'chart.js/auto'
+
+Chart.register(ArcElement, Tooltip, Legend)
 
 export default {
   name: 'AnalyticsDashboard',
@@ -207,6 +208,11 @@ export default {
     const productsStore = useProductsStore()
     const showAddModal = ref(false)
     const showDeleteModal = ref(false)
+
+    const availabilityChart = ref(null)
+    const statusChart = ref(null)
+    let availabilityChartInstance = null
+    let statusChartInstance = null
 
     const newProduct = ref({
       name: '',
@@ -242,6 +248,84 @@ export default {
       return `${formatDate(startOfWeek)} - ${formatDate(endOfWeek)}`
     })
 
+    const createAvailabilityChart = () => {
+      if (availabilityChartInstance) {
+        availabilityChartInstance.destroy()
+      }
+
+      const ctx = availabilityChart.value.getContext('2d')
+      availabilityChartInstance = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Disponibles', 'Caducados'],
+          datasets: [{
+            data: [productsStore.availablePercent, productsStore.expiredPercent],
+            backgroundColor: ['#4CAF50', '#F44336'],
+            borderWidth: 2,
+            borderColor: '#fff'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return context.label + ': ' + context.parsed + '%'
+                }
+              }
+            }
+          },
+          cutout: '70%'
+        }
+      })
+    }
+
+    const createStatusChart = () => {
+      if (statusChartInstance) {
+        statusChartInstance.destroy()
+      }
+
+      const ctx = statusChart.value.getContext('2d')
+      statusChartInstance = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Disponibles', 'Por caducar', 'En alerta'],
+          datasets: [{
+            data: [
+              productsStore.statusBreakdown.available,
+              productsStore.statusBreakdown.expiring,
+              productsStore.statusBreakdown.alert
+            ],
+            backgroundColor: ['#4CAF50', '#FF9800', '#F44336'],
+            borderWidth: 2,
+            borderColor: '#fff'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return context.label + ': ' + context.parsed + ' productos'
+                }
+              }
+            }
+          },
+          cutout: '70%'
+        }
+      })
+    }
+
     const addProduct = () => {
       productsStore.addProduct(newProduct.value)
       newProduct.value = {
@@ -253,18 +337,42 @@ export default {
         humidity: 70
       }
       showAddModal.value = false
+
+      nextTick(() => {
+        createAvailabilityChart()
+        createStatusChart()
+      })
     }
 
     const deleteProduct = (productId) => {
       productsStore.deleteProduct(productId)
+
+      nextTick(() => {
+        createAvailabilityChart()
+        createStatusChart()
+      })
     }
 
     const formatDate = (dateString) => {
       return new Date(dateString).toLocaleDateString('es-ES')
     }
 
-    // Actualizar fecha cada minuto
+    // Actualizar gráficos cuando cambien los datos
+    watch(() => productsStore.products, () => {
+      nextTick(() => {
+        createAvailabilityChart()
+        createStatusChart()
+      })
+    }, { deep: true })
+
+    // Inicializar gráficos
     onMounted(() => {
+      nextTick(() => {
+        createAvailabilityChart()
+        createStatusChart()
+      })
+
+      // Actualizar fecha cada minuto
       setInterval(() => {
         currentDate.value = new Date()
       }, 60000)
@@ -279,7 +387,9 @@ export default {
       dateRange,
       addProduct,
       deleteProduct,
-      formatDate
+      formatDate,
+      availabilityChart,
+      statusChart
     }
   }
 }
@@ -377,79 +487,61 @@ export default {
   opacity: 0.3;
 }
 
-/* Sección de Disponibilidad */
-.availability-section {
-  margin-bottom: 20px;
-  padding: 20px;
+/* Sección de Gráficos */
+.charts-section {
+  margin-bottom: 30px;
+  padding: 25px;
   background: #f8f9fa;
   border-radius: 8px;
-  border: 1px solid #e0e0e0;
-}
-
-.section-title {
-  font-size: 18px;
-  font-weight: bold;
-  color: #2c3e50;
-  margin-bottom: 5px;
-}
-
-.section-subtitle {
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 15px;
-}
-
-.percentages-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-}
-
-.percentage-item {
-  text-align: center;
-  padding: 15px;
-  background: white;
-  border-radius: 6px;
   border: 2px solid #4CAF50;
 }
 
-.percentage-value {
-  font-size: 24px;
-  font-weight: bold;
-  color: #2c3e50;
-  margin-bottom: 5px;
-}
-
-.percentage-label {
-  font-size: 14px;
-  color: #666;
-  font-weight: 500;
-}
-
-/* Sección de Estado */
-.status-section {
-  margin-bottom: 20px;
-  padding: 20px;
-  background: #f8f9fa;
-  border-radius: 8px;
-  border: 1px solid #e0e0e0;
-}
-
 .section-title {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
   color: #2c3e50;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
-.status-list {
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+.chart-container {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-bottom: 15px;
+  align-items: center;
 }
 
-.status-item {
+.chart-container h3 {
+  font-size: 16px;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.chart-container canvas {
+  width: 250px !important;
+  height: 250px !important;
+  margin-bottom: 20px;
+}
+
+.chart-legend {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.legend-item {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -457,33 +549,11 @@ export default {
   color: #333;
 }
 
-.status-dot {
-  width: 12px;
-  height: 12px;
+.legend-dot {
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   display: inline-block;
-}
-
-.status-dot.available {
-  background: #4CAF50;
-}
-
-.status-dot.expiring {
-  background: #FF9800;
-}
-
-.status-dot.alert {
-  background: #F44336;
-}
-
-.status-counts {
-  display: flex;
-  justify-content: space-between;
-  font-weight: bold;
-  color: #2c3e50;
-  margin-top: 10px;
-  padding-top: 15px;
-  border-top: 1px solid #e0e0e0;
 }
 
 /* Alertas Grid */
@@ -753,18 +823,14 @@ export default {
     gap: 10px;
   }
 
+  .charts-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
   .management-section {
     flex-direction: column;
     align-items: center;
-  }
-
-  .percentages-row {
-    grid-template-columns: 1fr;
-    gap: 15px;
-  }
-
-  .status-counts {
-    justify-content: space-around;
   }
 
   .action-btn {
@@ -792,6 +858,11 @@ export default {
 
   .header-section {
     padding: 15px;
+  }
+
+  .chart-container canvas {
+    max-width: 200px;
+    max-height: 200px;
   }
 }
 </style>
